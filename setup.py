@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import find_packages, setup
 
 from moview import __version__
 
@@ -8,12 +8,16 @@ with open('requirements.txt') as req_file:
 setup(
     name="MoView",
     version=__version__,
-    packages=find_packages(),
 
+    packages=find_packages(),
     package_data={
         # Include example xyz files
         '': ['*.xyz'],
     },
+    entry_points="""
+        [gui_scripts]
+        moview = moview.main:main
+        """,
 
     author="Pankaj Pandey",
     author_email="pankaj86@gmail.com",
