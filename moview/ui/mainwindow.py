@@ -4,6 +4,8 @@ from os.path import dirname, join
 
 from qtpy import QtWidgets, QtGui
 
+from .plot_view import PlotView
+
 
 class MoViewWindow(QtWidgets.QMainWindow):
     """ The main window of the application. """
@@ -13,6 +15,7 @@ class MoViewWindow(QtWidgets.QMainWindow):
             windowTitle='MoView',
         )
         self._create_menus()
+        self._create_central_widget()
         self._default_dir = join(dirname(__file__), 'examples')
 
     def _create_menus(self):
@@ -23,7 +26,8 @@ class MoViewWindow(QtWidgets.QMainWindow):
         exit_action = file_menu.addAction('E&xit', self.close, shortcut=QtGui.QKeySequence.Quit)
 
     def _create_central_widget(self):
-        pass
+        self.plot_view = PlotView(self)
+        self.setCentralWidget(self.plot_view)
 
     def _create_dock_panes(self):
         pass
