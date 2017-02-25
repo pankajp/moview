@@ -1,10 +1,19 @@
 """ Main module to start the application. """
 
-def main():
+from moview import __version__
+
+def get_qapp():
     from qtpy.QtWidgets import QApplication
     qapp = QApplication([])
-    from moview.mainwindow import MainWindow
-    w = MainWindow()
+    qapp.setApplicationName('MoView')
+    qapp.setApplicationVersion(__version__)
+    return qapp
+
+def main():
+    qapp = get_qapp()
+    from moview.ui.mainwindow import MoViewWindow
+    w = MoViewWindow()
+    w.show()
     qapp.exec_()
 
 
