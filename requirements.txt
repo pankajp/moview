@@ -1,0 +1,3 @@
+periodictable
+matplotlib
+qtpy
