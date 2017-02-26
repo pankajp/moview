@@ -9,6 +9,15 @@ PyQt5, PyQt4 or PySide as the Python bindings.
 The setup script creates a gui entry point ``moview`` which starts the
 application.
 
+
+Requirements
+------------
+
+- Matplotlib
+- qtpy (tested with PyQt5 backend)
+- periodictable
+
+
 Code Structure
 --------------
 
@@ -21,6 +30,7 @@ The code of the application is structured as follows::
     │   ├── __init__.py
     │   ├── __main__.py
     │   ├── examples                Example files
+    │   │   ├── __init__.py
     │   │   ├── BaHfO3.xyz
     │   │   └── benzene.xyz
     │   ├── io                      File I/O code
@@ -33,9 +43,22 @@ The code of the application is structured as follows::
     │   │   └── test_xyz_reader.py
     │   ├── ui                      GUI code
     │   │   ├── __init__.py
+    │   │   ├── app.py              Create/get QApplication
     │   │   ├── mainwindow.py       Main window of the application
-    │   │   └── plot_view.py        Matplotlib molecule plot widget
-    │   ├── utils.py                Miscellaneous utilities
-    │   ├── version.py              Version info of `MoView`
+    │   │   ├── plot_view.py        Matplotlib molecule plot widget
+    │   │   └── properties_pane.py  Properties dockpane
+    │   └── version.py              Version info of `MoView`
     ├── requirements.txt            Pip requirements
     └── setup.py                    Setup script
+
+
+Usage
+-----
+
+Start the application with the following command::
+
+    moview
+
+or to run it from the source directory without installing::
+
+    python -m moview
