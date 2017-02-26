@@ -25,10 +25,10 @@ class TestXYZReader(unittest.TestCase):
         if check_name:
             self.assertEqual(mol1.name, mol2.name)
         self.assertListEqual(mol1.atoms, mol2.atoms)
-        for i in xrange(len(mol1.coords)):
+        for i in range(len(mol1.coords)):
             coords1 = mol1.coords[i]
             coords2 = mol2.coords[i]
-            for axis in xrange(3):
+            for axis in range(3):
                 self.assertAlmostEqual(coords1[axis], coords2[axis])
 
     def test_read(self):
@@ -45,7 +45,7 @@ class TestXYZReader(unittest.TestCase):
         coords = mol.coords
 
         # When
-        with tempfile.NamedTemporaryFile(prefix='moview_reader-',
+        with tempfile.NamedTemporaryFile('w+', prefix='moview_reader-',
                                          delete=False) as f:
             self.addCleanup(os.remove, f.name)
             self.reader.write(mol, f)

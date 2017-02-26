@@ -38,7 +38,9 @@ class PropertiesPane(QDockWidget):
 
         mol_formula = formula(chem_formula)
         properties['Molecular Mass'] = mol_formula.mass
+        mass_composition = {str(a):mass
+                            for a, mass in mol_formula.mass_fraction.items()}
         properties['Mass Composition'] = '<br>'.join([
             '{0}: {1:.2f}%'.format(p[0], p[1]*100)
-            for p in sorted(mol_formula.mass_fraction.items())])
+            for p in sorted(mass_composition.items())])
         return properties
