@@ -1,4 +1,4 @@
-""" List some properties about opened Mol. """
+""" List some properties of Mol. """
 
 from collections import OrderedDict, Counter
 
@@ -37,7 +37,7 @@ class PropertiesPane(QDockWidget):
         properties['Chemical Formula'] = chem_formula
 
         mol_formula = formula(chem_formula)
-        properties['Molecule Wt.'] = mol_formula.mass
+        properties['Molecular Mass'] = mol_formula.mass
         properties['Mass Composition'] = '<br>'.join([
             '{0}: {1:.2f}%'.format(p[0], p[1]*100)
             for p in sorted(mol_formula.mass_fraction.items())])

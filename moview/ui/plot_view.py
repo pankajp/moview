@@ -3,12 +3,16 @@
 from qtpy import PYQT5
 from qtpy.QtWidgets import QWidget, QVBoxLayout
 
+from periodictable import elements
+
 from matplotlib.figure import Figure
 from mpl_toolkits.mplot3d import Axes3D
 if PYQT5:
-    from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT
+    from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, \
+        NavigationToolbar2QT
 else:
-    from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg, NavigationToolbar2QT
+    from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg, \
+        NavigationToolbar2QT
 
 
 class MoViewCanvas(FigureCanvasQTAgg):
@@ -40,7 +44,7 @@ class MoViewCanvas(FigureCanvasQTAgg):
             xs.append(x)
             ys.append(y)
             zs.append(z)
-            s.append(500)
+            s.append(getattr(elements, atom).covalent_radius*1000)
             c.append(atom_idx.setdefault(atom, len(atom_idx)))
             axes.text(x, y, z, atom)
         axes.scatter(xs, ys, zs, s=s, c=c)
@@ -61,11 +65,12 @@ class PlotView(QWidget):
         self.setLayout(layout)
 
     def plot(self, mol):
+        """ Plot a Mol into the matplotlib canvas. """
         self.canvas.plot_mol(mol)
 
 
 if __name__ == '__main__':
-    from moview.utils import get_qapp
+    from moview.ui.app import get_qapp
     qapp = get_qapp()
     pv = PlotView(None)
     pv.show()

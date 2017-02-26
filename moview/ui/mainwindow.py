@@ -1,14 +1,30 @@
 """ The main window of the application, MoViewWindow. """
 
+import functools
 from os.path import dirname, join, splitext
+import traceback
 
 from qtpy import QtWidgets, QtGui, QtCore
 
 from ..version import __version__
-from ..utils import get_example_dir
+from ..examples import example_dir
 from ..molecule import Mol
 from .plot_view import PlotView
 from .properties_pane import PropertiesPane
+
+
+def handle_errors(func):
+    """ Decorator to catch exceptions and inform the user. """
+    @functools.wraps(func)
+    def wrapper(self, *args, **kwds):
+        try:
+            result = func(self, *args, **kwds)
+        except Exception as e:
+            msg = 'An error happened performing the operation:\n\n'
+            msg += traceback.format_exc()
+            QtWidgets.QMessageBox.warning(
+                self, 'Error', msg)
+    return wrapper
 
 
 class MoViewWindow(QtWidgets.QMainWindow):
@@ -23,7 +39,7 @@ class MoViewWindow(QtWidgets.QMainWindow):
         self._create_central_widget()
         self._create_dock_panes()
         self._init_readers()
-        self._default_dir = get_example_dir()
+        self._default_dir = example_dir
         self._default_filename = join(self._default_dir, 'BaHfO3.xyz')
         self._mol = None
         self._open_default_file()
@@ -92,6 +108,7 @@ class MoViewWindow(QtWidgets.QMainWindow):
         if filename:
             self.open_file(filename)
 
+    @handle_errors
     def open_file(self, filename):
         """ Open the specified file. """
         reader = self._readers[splitext(filename)[-1]]()
@@ -110,6 +127,7 @@ class MoViewWindow(QtWidgets.QMainWindow):
         if filename:
             self.save_as_file(filename)
 
+    @handle_errors
     def save_as_file(self, filename):
         """ Save the loaded molecule into specified filename. """
         reader = self._readers[splitext(filename)[-1]]()

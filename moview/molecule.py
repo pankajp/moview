@@ -2,7 +2,7 @@
 
 class Mol(object):
     """ Represents a molecule with atoms and coordinates.
-    
+
     Attributes:
      - name: str: name of the molecule
      - atoms: list(str): list of symbols of Atoms contained in the molecule

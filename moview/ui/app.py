@@ -17,8 +17,3 @@ def get_qapp():
     qapp.setApplicationDisplayName('MoView')
     qapp.setApplicationVersion(__version__)
     return qapp
-
-
-def get_example_dir():
-    """ Return the directory having example .xyz files. """
-    return join(dirname(__file__), 'examples')

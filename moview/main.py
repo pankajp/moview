@@ -3,7 +3,7 @@
 from os.path import dirname, join
 
 from moview import __version__
-from moview.utils import get_qapp
+from moview.ui.app import get_qapp
 
 
 def main():

@@ -4,14 +4,14 @@ import os
 from os.path import join
 import tempfile
 
-from moview.utils import get_example_dir
+from moview.examples import example_dir
 from moview.io.xyz_reader import XYZReader
 from moview.molecule import Mol
 
 
 class TestXYZReader(unittest.TestCase):
     def setUp(self):
-        self.example_file = join(get_example_dir(), 'benzene.xyz')
+        self.example_file = join(example_dir, 'benzene.xyz')
         self.reader = XYZReader()
 
     def get_water_mol(self):
