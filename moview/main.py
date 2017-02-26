@@ -3,11 +3,17 @@
 from moview import __version__
 
 def get_qapp():
+    """ Return a QApplication instance, creating one if needed. """
     from qtpy.QtWidgets import QApplication
+    qapp = QApplication.instance()
+    if qapp:
+        return qapp
     qapp = QApplication([])
     qapp.setApplicationName('MoView')
+    qapp.setApplicationDisplayName('MoView')
     qapp.setApplicationVersion(__version__)
     return qapp
+
 
 def main():
     qapp = get_qapp()

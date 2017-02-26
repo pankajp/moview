@@ -26,6 +26,25 @@ class MoViewCanvas(FigureCanvasQTAgg):
         if mol is None:
             return
         axes.set_title(mol.name)
+        axes.grid(False)
+        atoms = mol.atoms
+        atom_idx = {}
+        coords = mol.coords
+        xs = []
+        ys = []
+        zs = []
+        s = []
+        c = []
+        for i, atom in enumerate(atoms):
+            x, y, z = mol.coords[i]
+            xs.append(x)
+            ys.append(y)
+            zs.append(z)
+            s.append(500)
+            c.append(atom_idx.setdefault(atom, len(atom_idx)))
+            axes.text(x, y, z, atom)
+        axes.scatter(xs, ys, zs, s=s, c=c)
+        self.draw_idle()
 
 
 class PlotView(QWidget):
@@ -40,6 +59,9 @@ class PlotView(QWidget):
         layout.addWidget(self.toolbar)
         layout.addWidget(self.canvas)
         self.setLayout(layout)
+
+    def plot(self, mol):
+        self.canvas.plot_mol(mol)
 
 
 if __name__ == '__main__':
