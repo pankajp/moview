@@ -8,6 +8,7 @@ from ..version import __version__
 from ..utils import get_example_dir
 from ..molecule import Mol
 from .plot_view import PlotView
+from .properties_pane import PropertiesPane
 
 
 class MoViewWindow(QtWidgets.QMainWindow):
@@ -20,6 +21,7 @@ class MoViewWindow(QtWidgets.QMainWindow):
         super(MoViewWindow, self).__init__()
         self._create_menus()
         self._create_central_widget()
+        self._create_dock_panes()
         self._init_readers()
         self._default_dir = get_example_dir()
         self._default_filename = join(self._default_dir, 'BaHfO3.xyz')
@@ -51,7 +53,9 @@ class MoViewWindow(QtWidgets.QMainWindow):
         self.mol_loaded.connect(self.plot_view.plot)
 
     def _create_dock_panes(self):
-        pass
+        properties_pane = PropertiesPane(self)
+        self.mol_loaded.connect(properties_pane.set_mol)
+        self.addDockWidget(QtCore.Qt.RightDockWidgetArea, properties_pane)
 
     def _init_readers(self):
         from ..io.xyz_reader import XYZReader
