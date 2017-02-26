@@ -1,18 +1,9 @@
 """ Main module to start the application. """
 
-from moview import __version__
+from os.path import dirname, join
 
-def get_qapp():
-    """ Return a QApplication instance, creating one if needed. """
-    from qtpy.QtWidgets import QApplication
-    qapp = QApplication.instance()
-    if qapp:
-        return qapp
-    qapp = QApplication([])
-    qapp.setApplicationName('MoView')
-    qapp.setApplicationDisplayName('MoView')
-    qapp.setApplicationVersion(__version__)
-    return qapp
+from moview import __version__
+from moview.utils import get_qapp
 
 
 def main():

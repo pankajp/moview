@@ -65,7 +65,7 @@ class PlotView(QWidget):
 
 
 if __name__ == '__main__':
-    from moview.main import get_qapp
+    from moview.utils import get_qapp
     qapp = get_qapp()
     pv = PlotView(None)
     pv.show()

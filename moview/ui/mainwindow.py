@@ -5,6 +5,7 @@ from os.path import dirname, join, splitext
 from qtpy import QtWidgets, QtGui, QtCore
 
 from ..version import __version__
+from ..utils import get_example_dir
 from ..molecule import Mol
 from .plot_view import PlotView
 
@@ -20,7 +21,7 @@ class MoViewWindow(QtWidgets.QMainWindow):
         self._create_menus()
         self._create_central_widget()
         self._init_readers()
-        self._default_dir = join(dirname(dirname(__file__)), 'examples')
+        self._default_dir = get_example_dir()
         self._default_filename = join(self._default_dir, 'BaHfO3.xyz')
         self._mol = None
         self._open_default_file()
